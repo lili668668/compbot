@@ -1,0 +1,580 @@
+python與java的差別
+
+次方x^y
+python:x**y
+java:Math.pow(x,y);
+
+商數
+python:x//y
+java:Math.round(x/y);
+
+[python布林觀念
+None (空), 0, False, 或空字串為false]
+布林值運算子
+python:not,and,or
+java:!,&&,||
+
+註解
+python:#
+java://
+
+[python寫code觀念，沒有大括號{}，也沒有分號;做結尾]
+
+if-else
+python:
+	if True/False :
+		#程式
+	elif True/False :
+		#程式
+	else :
+		#程式
+java:
+	if(true/false){
+	}else{
+	}
+
+for loop
+[python可以在loop後面加else，可以與break互相配合]
+python:
+	第一種的結果跟第二種一樣，會印出0到3
+	第一種：
+	i = [0,1,2,3]
+	for a in i :
+		print a
+	第二種：
+	for a in range (0,4) :
+		print a
+java:
+	第一種的結果跟第二種一樣，會印出0到3
+	第一種：
+	int i = {0,1,2,3};
+	for(int cnt = 0;cnt < i.length;cnt++){
+		System.out.println(i[cnt]);
+	}
+	第二種：
+	for(int cnt = 0;cnt < 4;cnt++){
+		System.out.println(cnt);
+	}
+	
+建立函式
+python:
+#可以在參數列表加上等號做default
+	def title(x,y=1) :
+		#程式
+		return #變數
+		#可以不回傳，也可以回傳，沒有回傳值，代表回傳None
+java:
+	public static void title (){
+	}
+
+[python的特殊命名空間，global(共用)。
+ ex:
+	def func():
+		global x
+ 此時x即可在函式外使用
+]
+
+null值
+python:
+	None
+java:
+	null
+
+沒有內容的語句塊
+python:
+	def title() :
+		pass
+java:
+	public static void title(){
+	}
+	
+數字轉換
+python:
+	x = int(x);
+java:
+	int x = Integer.parseInt(str); //String str
+
+[python的特別觀念，DocStrings(文件字串)
+ #DocStrings 建立
+ ex:
+	def title() :
+		'''Test.
+		
+		The function is used to test.'''
+ #DocStrings 呼叫
+ (String) title.__doc__
+ #DocStrings 用法
+  #第一種
+ print title.__doc__
+  #第二種
+ help(Object)
+ #DocStrings 呈現結果
+ Test.
+		
+ The function is used to test.
+ #DocStrings 最好的規格
+ 文件字串慣例是一個多行的字串，它的首行以大寫字母開始，以句號結尾。第一行通常是這個函式的簡介。 如果要包含更長的解釋，那麼就空一行後從第三行再開始是詳細的描述。強烈建議你在使用文件字串時遵循這個慣例。
+]
+
+import
+[# File name: mymodule.py
+def sayhi():
+    print 'Hi, this is', __name__, 'speaking'
+version = '0.1']
+python:
+	import mymodule
+	from mymodule import version
+	import mymodule as apple
+java:
+	import java.util.Scanner;
+
+[python的方法，dir()
+ 列出所有屬性與方法
+ dir(#可以加物件名稱，也可以不加)
+]
+
+[刪除其中一個屬性
+ ex:
+	a = 5
+	del a
+]
+
+[python的資料結構
+ 
+ 列表(list)
+ list = [0,1,2,3]
+ 
+ 元組(tuple)
+ tuple = (0,1,2,3)
+ tuple = (0,)
+ #如果只有一個元素時，必須在後面加逗號
+ 
+ 字典(dictionary)
+ #注意鍵必須是唯一的，就像如果有兩個人恰巧同名的話，你無法找到正確的信息。
+ dictionary = {key1 : value1, key2 : value2 }
+ #即
+ dictionary['key1'] = value1
+ dictionary.item() #回傳兩值，key，value
+ 
+ 序列(sequences)
+ sequences = [0,1,2,3,4,5,6]
+ #即
+ sequences[0] = 0
+ sequences[-1] = 6
+ sequences[1:4] = [1,2,3]
+ sequences[2:] = [2,3,4,5,6]
+ sequences[:] = [0,1,2,3,4,5,6]
+ sequences[:5] = [0,1,2,3,4]
+ 
+ 引用(reference)
+ #傳址複製
+ mylist = shoplist #共用地址
+ #傳值複製
+ mylist = shoplist[:] #非共用地址
+ (類似java的
+  for(int cnt = 0;cnt < shoplist.length;cnt++){
+	mylist[cnt] = shoplist[cnt];
+  }
+ )
+]
+
+printf
+python:
+	print 'Who is %s' % 'apple'
+java:
+	System.out.printf("Who is %s","apple");
+
+println
+python:
+	print
+java:
+	System.out.println();
+	
+物件class
+python:
+	class Person:
+		pass
+	p = Person()
+	print p
+	#結果
+	<__main__.Person instance at 0x6c2b0>
+java:
+	public class Person{
+	}
+	Person p = new Person();
+	System.out.print(p);
+	//結果
+	0x6c2b0
+
+[#這個類別方法並未取用任何參數，但仍然在定義函式時將self參數列入參數列表中。
+ class Person:
+    def say_hi(self):
+        print 'Hello, how are you?'
+ p = Person()
+ p.say_hi()
+ # 這個簡短的例子也能寫成Person().say_hi()
+]
+
+初始化(建構子)(__init__)
+python:
+	class Person:
+
+		def __init__(self, name):
+			self.name = name
+			
+		#解構子(__del__)
+		def __del__(self):
+			'''I am dying.'''
+			print '%s says bye.' % self.name
+			Person.population -= 1
+		
+		#字串化(__str__)
+		def __str__(self):
+			'''Represent the school member as a string.'''
+			return 'Name:"%s" Age:"%s"' % (self.name, self.age)
+
+		def say_hi(self):
+			print 'Hello, my name is', self.name
+	p = Person('Swaroop')
+	#字串化用法
+	print p
+	p.say_hi()
+	#解構子用法
+	del p
+java:
+	public class Person{
+		String name;
+		public Person(String name){
+			this.name = name;
+		}
+	}
+
+[python並沒有++或--的運算子]
+
+物件變量(靜態變數)
+python:
+	self.name = name #instance變數
+	Person.name = name #static變數
+java:
+	//instance變數
+	String name;
+	this.name = name;
+	//static變數
+	static String name;
+	Person.name = name;
+
+繼承
+python:
+	class SchoolMember: #父類別
+		'''Represents any school member.'''
+		def __init__(self, name, age):
+			self.name = name
+			self.age = age
+
+		def __str__(self):
+			'''Represent the school member as a string.'''
+			return 'Name:"%s" Age:"%s"' % (self.name, self.age)
+	class Teacher(SchoolMember): #子類別
+		'''Represents a teacher.'''
+
+		def __init__(self, name, age, salary):
+			SchoolMember.__init__(self, name, age)
+			self.salary = salary
+
+		def __str__(self):
+			#使用父類別的方法
+			return '%s Salary:"%d"' % (SchoolMember.__str__(self), self.salary)
+java:
+	//父類別
+	public class SchoolMember{
+		/*Represents any school member.*/
+		public SchoolMember(name, age){
+			this.name = name;
+			this.age = age;
+		}
+
+		public String toString(){
+			/*Represent the school member as a string.*/
+			return "Name:\"" + self.name + "\" Age:\"" + this.age + "\"";
+		}
+	}
+	//子類別
+	public class Teacher extends SchoolMember{ 
+		/*Represents a teacher.*/
+
+		public Teacher(name, age){
+			this.name = name;
+			this.age = age;
+		}
+
+		public String toString(){
+			//使用父類別的方法
+			return super.toString() + " Salary:\"" + this.salary + "\"";
+		}
+	}
+	
+輸入
+python:
+	raw_input
+java:
+	input.next();
+
+檔案處理
+python:
+	#寫入
+	#三種屬性
+		r讀取
+		w寫入
+		a追加
+	f = file('a.txt','w')
+	f.write(str)
+	f.close()
+	#讀檔
+	f = file('a.txt')
+	#第一種
+	while True:
+		line = f.readline()
+		if len(line) == 0:
+			break
+		print line
+	#第二種
+	for line in file('a.txt'):
+		print line
+	f.close()
+java:
+	//寫入
+	File f = new File();
+	FileWriter FW = new FileWriter(f);
+	FW.write(str);
+	FW.close();
+	f.close();
+	//讀檔
+	File f = new File();
+	Scanner input = new Scanner(f);
+	String str = "";
+	while(input.hasNext()){
+		str += input.nextLine();
+	}
+	input.close();
+	f.close();
+	
+序列化
+python:
+	import cPickle as pickle
+	#輸出
+	pickle.dump(Object, File)
+	#輸入
+	Object = pickle.load(File)
+java:
+	//待追加
+	
+例外處理
+python:
+	class ShortInputException(Exception):
+		'''A user-defined exception class.'''
+		def __init__(self, length, atleast):
+			Exception.__init__(self)
+			self.length = length
+			self.atleast = atleast
+	try:
+		s = raw_input('Enter something : ')
+		if len(s) < 3:
+			raise ShortInputException(len(s), 3)
+		# Continue other work as usual here
+	except EOFError:
+		print '\nWhy did you do an EOF on me?'
+	except ShortInputException, x:
+		print 'Input was of length %d. I was expecting at least length of %d' % (x.length, x.atleast)
+	else:
+		print 'No exception was raised.'
+	try:
+		i = int(input("int:"))
+	except ValueError as err:
+		print(err)
+java:
+	//待追加
+	
+	
+傳入多個不知數目的參數
+python:
+	def many(*args):
+		#discription
+
+java:
+	public static many(int args...){
+	}
+	
+比較參址是否一樣
+python:
+	int[] a=[1,2,3]
+	int[] b=a
+	a is b
+java:
+	a=[1,2,3];
+	b=a;
+	a==b
+
+比較數值
+python:
+	a = "apple"
+	b = "apple"
+	a==b
+java:
+	String a = "apple";
+	String b = "apple";
+	a.equals(b);
+	
+***
+python:
+	seed = ["apple","banana","cat"]
+	seed += "dog"
+	#seed = ["apple","banana","cat","d","o","g"]
+	seed = ["apple","banana","cat"]
+	seed += ["dog"]
+	#seed = ["apple","banana","cat","dog"]
+
+***
+python:
+	while True:
+		line = input("int:")
+		if line:
+			try:
+				number = int(line)
+			except ValueError as err:
+				print(err)
+				continue
+			total += number
+			count+=1
+		else:
+			break
+	if count:
+		print(total)
+
+***
+python:
+import random
+random.randint(1,6)
+random.choice(["apple","banana","cat"])
+
+***整數型態用法
+x//y無條件捨去取整數
+x**y次方
+abs(x)取絕對值
+divmod(x,y)回傳x除以y(商數,餘數)
+pow(x,y)==x**y
+pow(x,y,z)==(x**y)%z
+round(x,n)n為負數，x對n為整數四捨五入，n為正數，x四捨五入到n位整數
+bin(i)回傳二進制
+hex(i)回傳十六進制
+oct(i)回傳八進制
+int(s,base)
+
+***跟數學相關的模組
+import math
+
+***complex負數
+ex:
+z=-18.9+865.5j
+print(z.real,z.imag)
+#-18.9 865.5
+
+***字串的方法
+s="apple"
+s=s.capitalize()#字首大寫
+#"Apple"
+s=s.center(11,"-")#ljust,rjust
+#"---apple---"
+i=s.count("p",1,-1)#計算出現次數
+#2
+b=s.endswith("e",1,-1)#是否以什麼結尾
+#True
+#相對應startswith()
+i=s.find("p",1,-1)<>i=s.rfind("p",1,-1)#找不到回傳-1
+#1,2
+i=s.index("p",1,-1)<>i=s.rindex("p",1,-1)#找不到觸發ValueError
+#1,2
+seed = ["apple","banana","cat"]
+s=s.join(seed)
+#"appleapplebananacat"
+s=s.lower(),s.upper()
+s.partition("p")<>s.rpartition("p")
+#('a', 'p', 'ple'),('ap', 'p', 'le')
+s=s.replace("p","5",1),s.replace("p","5")
+#'a5ple','a55le'
+s.split("p"),s.rsplit("p"),s.split("p",2),s.split("p",1)
+['a', '', 'le'],['a', '', 'le'],['a', '', 'le'],['a', 'ple']
+e="apple\nbanana\ncat\n"
+e.splitlines(),e.splitlines(True)
+#['apple', 'banana', 'cat'],['apple\n', 'banana\n', 'cat\n']
+e="\n  apple  \n"
+e.strip()
+#'apple'
+e.lstrip()
+#'apple  \n'
+e.rstrip()
+#'\n  apple'
+e.strip("p")
+#'\n  apple  \n'
+e.strip("\n")
+#'  apple  '
+e.strip("  ")
+#'\n  apple  \n'
+e="AppLe"
+e.swapcase()
+#'aPPlE'
+e.title()
+#'Apple'
+"{0}-{1}".format("apple","banana")
+#'apple-banana'
+"{{{0}}}-{1}".format("apple","banana")
+#'{apple}-banana'
+
+>>> "{{{0[0]}}}-{0[1]}".format(a)
+'{apple}-banana'
+>>> "{who}-{age}".format(who="Lucky",age=12)
+'Lucky-12'
+#{0},{1[index]},{2[鍵]},{3.屬性}
+>>> apple="cat"
+>>> banana="dog"
+>>> "{apple},{banana}".format(**locals())
+'cat,dog'
+
+***具名元組
+collections模組中的namedtuple()
+import collections
+定義具名元組(ex:)
+Apple = collections.namedtuple("Apple", "value number whohave")
+建立一筆(ex:)
+apple = Apple(200, 2, Anna)
+用法(ex:)
+apple.number
+#2
+
+***set集合
+是雜湊表
+只能雜湊不可變型態
+雜湊表的每一值都不重複
+方法：
+s.add(x)
+s.clear()
+s=s.copy()
+s.difference(x) == s - t
+s.difference_update(x) == s-=x
+s.discard(x)#如果x存在就移除x
+s.intersection(x) == s & t
+s.intersection_update(x) == s &= t
+s.isdisjoint(x)#如果兩個set沒有一致的值，就回傳True
+s.issubset(x) == s <= t
+s.issuperset(x) == s >= t
+s.pop()#隨機回傳與移除一值，若為空集合，引發KeyError
+s.remove()#若為無此值，引發KeyError
+
+***凍結集合
+是不可變的集合
+方法：
+d.fromkeys(s,v)
+
+
+
+
+
