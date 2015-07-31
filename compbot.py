@@ -6,8 +6,16 @@ cust = input("孤單寂寞覺得冷嗎？電腦陪你說說話\n說明遊戲規�
 a = ("好可愛","藍藍der")
 b = ("黑黑",)     
 computer = { "哆拉A夢" : a , "翔子" : b}
-
-if "我說" in cust and "你說" in cust :
-    print("功能未全，銘謝惠顧")
-else :
-    print(random.choice(computer[cust]))
+while True :
+    if "我說" in cust and "你說" in cust :
+        print("功能未全，銘謝惠顧")
+    elif "你說" in cust and "你壞壞" :
+        print("功能未全，銘謝惠顧")
+    elif EOF:
+        break
+    else :
+        try:
+            print(random.choice(computer[cust]))
+        except KeyError:
+            print("抱歉你再說什麼我聽不懂，請用「我說XXX，你說OOO」來定義字句")
+    cust = input("都來都來繼續說")
