@@ -8,14 +8,20 @@ b = ("黑黑",)
 computer = { "哆拉A夢" : a , "翔子" : b}
 while True :
     if "我說" in cust and "你說" in cust :
-        print("功能未全，銘謝惠顧")
+        (key,value) = (cust.split(",")[0],cust.split(",")[1])
+        key = key.replace("我說","")
+        value = value.replace("你說","")
+        if key in computer :
+            computer[key]+=(value,)
+        else :
+            computer[key] = (value,)
     elif "你說" in cust and "你壞壞" :
-        print("功能未全，銘謝惠顧")
-    elif EOF:
-        break
+        print("功能未全，銘謝惠顧2")
+    elif "" == cust :
+        print("你並未輸入任何東西")
     else :
         try:
             print(random.choice(computer[cust]))
         except KeyError:
             print("抱歉你再說什麼我聽不懂，請用「我說XXX，你說OOO」來定義字句")
-    cust = input("都來都來繼續說")
+    cust = input("都來都來繼續說\n")
