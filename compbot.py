@@ -1,4 +1,21 @@
 import random
+import pickle
+
+#初始化
+flag = False
+computer = {}
+try :
+    pic = open("CompbotDB.pkl" , "rb")
+    computer = pickle.load(pic)
+except (EnvironmentError , pickle.PicklingError) as err :
+    print("載入錯誤")
+    flag = True
+finally :
+    if pic is not None :
+        pic.close()
+if flag:
+    SystemExit
+
 #處理定義字串
 def dealWithString(string):
     if string.count(",") > 1 and string.count("我說") > 1 and string.count("你說") > 1 :
@@ -16,10 +33,6 @@ def dealWithString(string):
 #初始輸入
 cust = input("孤單寂寞覺得冷嗎？電腦陪你說說話\n說明遊戲規則，如果你說「我說XXX，你說OOO」，就表示你正在教電腦說話，記住，電腦是隻猴子，你要教電腦說話他才會回答你。因為他是隻聰明的猴子，所以他會儲存對話內容。另外你可以試試，教他很多不一樣的回答，例如「我說蘋果，你說紅紅」「我說蘋果，你說好吃」「我說蘋果，你說超難吃」。如果你要刪除某像對話可以這樣說「我說蘋果,你說好吃，你壞壞」。\n事不宜遲，快來教跟這隻猴子講話吧\n打「結束」結束\n")
 
-"""範例"""
-a = ["好可愛","藍藍der"]
-computer = { "哆拉A夢" : a }
-
 #主程式
 while True :
     if "我說" in cust and ",你說" in cust and ",你壞壞" in cust :
@@ -27,7 +40,7 @@ while True :
         if (key,value) != (None,None) :
             if key in computer :
                 if value in computer[key] :
-                    computer[key] = computer[key].remove(value)
+                    computer[key].remove(value)
                     if computer[key] is None :
                         del computer[key]
                 else :
@@ -38,7 +51,10 @@ while True :
         (key,value) = dealWithString(cust)
         if (key,value) != (None,None) :
             if key in computer :
-                computer[key] += [value]
+                if value not in computer[key]:
+                    computer[key] += [value]
+                else:
+                    print("此定義已有")
             else :
                 computer[key] = [value]
     elif "" == cust :
@@ -51,4 +67,14 @@ while True :
         except KeyError:
             print("抱歉你再說什麼我聽不懂，請用「我說XXX，你說OOO」來定義字句")
     cust = input()
+
+#序列化
+try :
+    pic = open("CompbotDB.pkl" , "wb")
+    pickle.dump(computer,pic)
+except (EnvironmentError , pickle.PicklingError) as err :
+    print("輸出錯誤")
+finally:
+    if pic is not None :
+        pic.close()
 
